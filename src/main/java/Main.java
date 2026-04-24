@@ -14,6 +14,7 @@ public class Main {
 
         context = zCreateContext();
         anotherContext = zCreateContext();
+        anotherContext.createEntity();
         entity = zCreateEntity(context);
 
         entity.attach(new TestComponent(A_Component.ACCESS_TYPE.UNIQUE), false);
