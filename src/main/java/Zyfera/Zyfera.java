@@ -553,56 +553,222 @@ public class Zyfera {
         return zDetachProcessor(context.id(), processor);
     }
 
+    /**
+     * Adds an {@link A_Component} to an {@link Entity} inside a context. <br>
+     * Any component class can only every be once on an entity. <br>
+     * The override operator determines if a component already added to the entity,
+     * with the same class, will be overridden or not.
+     *
+     * @param contextId The id of the context.
+     * @param entityId The id of the entity.
+     * @param component The component that is to be added to the entity.
+     * @param override Whether an old component with the same class is to be overridden.
+     *
+     * @return Whether the addition succeeded or not.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zAddComponent(int contextId, int entityId, T component, boolean override) {
         return _getContextData(contextId).addComponent(entityId, component, override);
     }
+    /**
+     * Adds an {@link A_Component} to an {@link Entity} inside a context. <br>
+     * Any component class can only every be once on an entity. <br>
+     * The override operator determines if a component already added to the entity,
+     * with the same class, will be overridden or not.
+     *
+     * @param context The context.
+     * @param entityId The id of the entity.
+     * @param component The component that is to be added to the entity.
+     * @param override Whether an old component with the same class is to be overridden.
+     *
+     * @return Whether the addition succeeded or not.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zAddComponent(Context context, int entityId, T component, boolean override) {
         return _getContextData(context.id()).addComponent(entityId, component, override);
     }
+    /**
+     * Adds an {@link A_Component} to an {@link Entity} inside a context. <br>
+     * Any component class can only every be once on an entity. <br>
+     * The override operator determines if a component already added to the entity,
+     * with the same class, will be overridden or not.
+     *
+     * @param entity The entity.
+     * @param component The component that is to be added to the entity.
+     * @param override Whether an old component with the same class is to be overridden.
+     *
+     * @return Whether the addition succeeded or not.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zAddComponent(Entity entity, T component, boolean override) {
         return _getContextData(entity.contextId()).addComponent(entity.id(), component, override);
     }
 
+    /**
+     * Removes an {@link A_Component} from an {@link Entity} inside a context.
+     *
+     * @param contextId The id of the context.
+     * @param entityId The id of the entity.
+     * @param component The component that should be removed.
+     *
+     * @return The success of the removal.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zRmvComponent(int contextId, int entityId, T component) {
         return _getContextData(contextId).rmvComponent(entityId, component.getClass());
     }
+    /**
+     * Removes an {@link A_Component} from an {@link Entity} inside a context.
+     *
+     * @param context The context.
+     * @param entityId The id of the entity.
+     * @param component The component that should be removed.
+     *
+     * @return The success of the removal.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zRmvComponent(Context context, int entityId, T component) {
         return _getContextData(context.id()).rmvComponent(entityId, component.getClass());
     }
+    /**
+     * Removes an {@link A_Component} from an {@link Entity} inside a context.
+     *
+     * @param entity The entity.
+     * @param component The component that should be removed.
+     *
+     * @return The success of the removal.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zRmvComponent(Entity entity, T component) {
         return _getContextData(entity.contextId()).rmvComponent(entity.id(), component.getClass());
     }
 
+    /**
+     * Removes an {@link A_Component} based on its class from an {@link Entity} inside a context.
+     *
+     * @param contextId The id of the context.
+     * @param entityId The id of the entity.
+     * @param componentClass The class of the component
+     *
+     * @return The success of the removal.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zRmvComponent(int contextId, int entityId, Class<T> componentClass) {
         return _getContextData(contextId).rmvComponent(entityId, componentClass);
     }
+    /**
+     * Removes an {@link A_Component} based on its class from an {@link Entity} inside a context.
+     *
+     * @param context The context.
+     * @param entityId The id of the entity.
+     * @param componentClass The class of the component
+     *
+     * @return The success of the removal.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
     public static <T extends A_Component> boolean zRmvComponent(Context context, int entityId, Class<T> componentClass) {
         return _getContextData(context.id()).rmvComponent(entityId, componentClass);
     }
-    public static <T extends A_Component> boolean zRmvComponent(int contextId, Entity entity, Class<T> componentClass) {
-        return _getContextData(contextId).rmvComponent(entity.id(), componentClass);
-    }
-    public static <T extends A_Component> boolean zRmvComponent(Context context, Entity entity, Class<T> componentClass) {
-        return _getContextData(context.id()).rmvComponent(entity.id(), componentClass);
+    /**
+     * Removes an {@link A_Component} based on its class from an {@link Entity} inside a context.
+     *
+     * @param entity The entity.
+     * @param componentClass The class of the component
+     *
+     * @return The success of the removal.
+     *
+     * @param <T> The class of the component.
+     *
+     * @author Tim Kloepper
+     */
+    public static <T extends A_Component> boolean zRmvComponent(Entity entity, Class<T> componentClass) {
+        return _getContextData(entity.contextId()).rmvComponent(entity.id(), componentClass);
     }
 
+    /**
+     * Checks whether an {@link Entity} is inside a {@link Context}.
+     *
+     * @param contextId The id of the context.
+     * @param entityId The id of the entity.
+     *
+     * @return Whether the context contains the entity or not.
+     *
+     * @author Tim Kloepper
+     */
     public static boolean zContainsEntity(int contextId, int entityId) {
         return _getContextData(contextId)._ENTITIES.containsKey(entityId);
     }
+    /**
+     * Checks whether an {@link Entity} is inside a {@link Context}.
+     *
+     * @param context The context.
+     * @param entityId The id of the entity.
+     *
+     * @return Whether the context contains the entity or not.
+     *
+     * @author Tim Kloepper
+     */
     public static boolean zContainsEntity(Context context, int entityId) {
         return zContainsEntity(context.id(), entityId);
     }
-    public static boolean zContainsEntity(int contextId, Entity entity) {
-        return zContainsEntity(contextId, entity.id());
-    }
-    public static boolean zContainsEntity(Context context, Entity entity) {
-        return zContainsEntity(context.id(), entity.id());
+    /**
+     * Checks whether an {@link Entity} is inside a {@link Context}.
+     *
+     * @param entity The entity.
+     *
+     * @return Whether the context contains the entity or not.
+     *
+     * @author Tim Kloepper
+     */
+    public static boolean zContainsEntity(Entity entity) {
+        return zContainsEntity(entity.contextId(), entity.id());
     }
 
+    /**
+     * Updates all {@link A_Processor} objects with the {@link Entity} objects contained in this {@link Context}.
+     *
+     * @author Tim Kloepper
+     */
     public static void zUpdate() {
         for (ContextData contextData : s_CONTEXTS.values()) contextData.update();
     }
 
+    /**
+     * Moves an {@link Entity} from one {@link Context} to another. <br>
+     * Also assigns it a new id and returns it.
+     *
+     * @param entityId The id of the entity.
+     * @param contextId The id of the context the entity is currently in.
+     * @param toContextId The id of the context the entity should be moved to.
+     *
+     * @return The new id of the entity.
+     *
+     * @author Tim Kloepper
+     */
     public static int zSwitchContext(int entityId, int contextId, int toContextId) {
         ContextData from, to;
         HashMap<Class<? extends A_Component>, A_Component> components;
@@ -618,12 +784,46 @@ public class Zyfera {
 
         return to.addEntity(components, entity);
     }
+    /**
+     * Moves an {@link Entity} from one {@link Context} to another. <br>
+     * Also assigns it a new id and returns it.
+     *
+     * @param entityId The id of the entity.
+     * @param contextId The id of the context the entity is currently in.
+     * @param toContext The context the entity should be moved to.
+     *
+     * @return The new id of the entity.
+     *
+     * @author Tim Kloepper
+     */
     public static int zSwitchContext(int entityId, int contextId, Context toContext) {
         return zSwitchContext(entityId, contextId, toContext.id());
     }
+    /**
+     * Moves an {@link Entity} from one {@link Context} to another. <br>
+     * Also assigns it a new id and returns it.
+     *
+     * @param entity The entity.
+     * @param toContextId The id of the context the entity should be moved to.
+     *
+     * @return The new id of the entity.
+     *
+     * @author Tim Kloepper
+     */
     public static int zSwitchContext(Entity entity, int toContextId) {
         return zSwitchContext(entity.id(), entity.contextId(), toContextId);
     }
+    /**
+     * Moves an {@link Entity} from one {@link Context} to another. <br>
+     * Also assigns it a new id and returns it.
+     *
+     * @param entity The entity.
+     * @param toContext The context the entity should be moved to.
+     *
+     * @return The new id of the entity.
+     *
+     * @author Tim Kloepper
+     */
     public static int zSwitchContext(Entity entity, Context toContext) {
         return zSwitchContext(entity.id(), entity.contextId(), toContext.id());
     }
