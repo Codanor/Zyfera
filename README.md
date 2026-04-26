@@ -26,14 +26,16 @@ Furthermore, Zyfera is well documented and the code is easy to read.
 
 ## Features
 
-### Component access type
-### Entity context switching
-### Static base API
-### Utility context and entity classes
-### Context and entity stream classes
-### Processor lazy entity validation caching
-### Cross-context processor usage
-### Disposable entities and contexts
+<ul>
+  <li> Component access type </li>
+  <li> Entity context switching </li>
+  <li> Static base API </li>
+  <li> Utility context and entity classes </li>
+  <li> Context and entity stream classes </li>
+  <li> Processor lazy entity validation caching </li>
+  <li> Cross-context processor usage </li>
+  <li> Disposable entities and contexts </li>
+</ul>
 
 ## Getting started
 
