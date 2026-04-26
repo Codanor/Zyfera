@@ -27,7 +27,7 @@ Furthermore, Zyfera is well documented and the code is easy to read.
 ## Features
 
 <ul>
-  <li> Component access type </li>
+  <li> Component access type [SHARED / UNIQUE] </li>
   <li> Entity context switching </li>
   <li> Static base API </li>
   <li> Utility context and entity classes </li>
@@ -45,7 +45,7 @@ The classes used in this example, are in the project, so you can copy-paste this
 Context context;
 Entity entity;
 
-context = zCreateContext();
+context = Zyfera.zCreateContext();
 entity = context.createEntity();
 
 // --- //
