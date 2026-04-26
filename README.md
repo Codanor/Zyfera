@@ -3,7 +3,7 @@
 A context based entity component system written in Java, while providing convenient utility wrapper and stream classes. <br>
 All processors are also cross-contextable.
 
-# What is Zyfera
+## What is Zyfera
 
 Zyfera is a Java ECS. It constructs entities out of components and has processors to act on them. <br>
 For that, it uses a context based system, storing entities, which are just ids, inside of those contexts, also ids. <br>
@@ -12,7 +12,7 @@ Despite this limitation, entities can switch a context easily. <br>
 
 The processors can also be applied to multiple context and use a validation cache for quick entity component updates.
 
-# Why use Zyfera
+## Why use Zyfera
 
 Zyfera is easy to use with a static API, marked by a leading z. <br>
 Expanding on that, Zyfera also provides utility classes for entities and contexts,
@@ -24,18 +24,18 @@ and a static API.
 
 Furthermore, Zyfera is well documented and the code is easy to read.
 
-# Features
+## Features
 
-## Component access type
-## Entity context switching
-## Static base API
-## Utility context and entity classes
-## Context and entity stream classes
-## Processor lazy entity validation caching
-## Cross-context processor usage
-## Disposable entities and contexts
+### Component access type
+### Entity context switching
+### Static base API
+### Utility context and entity classes
+### Context and entity stream classes
+### Processor lazy entity validation caching
+### Cross-context processor usage
+### Disposable entities and contexts
 
-# Getting started
+## Getting started
 
 The classes used in this example, are in the project, so you can copy-paste this code.
 
