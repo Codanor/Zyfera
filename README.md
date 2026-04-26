@@ -24,6 +24,17 @@ and a static API.
 
 Furthermore, Zyfera is well documented and the code is easy to read.
 
+# Features
+
+## Component access type
+## Entity context switching
+## Static base API
+## Utility context and entity classes
+## Context and entity stream classes
+## Processor lazy entity validation caching
+## Cross-context processor usage
+## Disposable entities and contexts
+
 # Getting started
 
 The classes used in this example, are in the project, so you can copy-paste this code.
