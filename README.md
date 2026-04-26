@@ -31,4 +31,9 @@ The classes used in this example, are in the project, so you can copy-paste this
 ```
 Context context;
 Entity entity;
+
+context = zCreateContext();
+entity = context.createEntity();
+
+// --- //
 ```
