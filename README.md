@@ -28,6 +28,7 @@ Furthermore, Zyfera is well documented and the code is easy to read.
 
 The classes used in this example, are in the project, so you can copy-paste this code.
 
-'''
+```
 Context context;
-'''
+Entity entity;
+```
