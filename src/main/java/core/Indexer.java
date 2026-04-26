@@ -1,4 +1,4 @@
-package Zyfera;
+package core;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;

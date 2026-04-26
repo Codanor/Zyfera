@@ -1,4 +1,4 @@
-package Zyfera;
+package core;
 
 /**
  * <p>
@@ -16,9 +16,18 @@ package Zyfera;
 public class Entity {
 
     protected Entity(int entityId, int contextId) {
-        _contextId = contextId;
+        _disposed = false;
 
+        _contextId = contextId;
         _id = entityId;
+    }
+
+    public static class EntityIsDisposedException extends RuntimeException {
+
+        public EntityIsDisposedException(String message) {
+            super(message);
+        }
+
     }
 
     /**
@@ -142,6 +151,8 @@ public class Entity {
 
     }
 
+    private boolean _disposed;
+
     private int _id, _contextId;
 
     private Stream _stream;
@@ -162,6 +173,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public <T extends A_Component> boolean attach(T component, boolean override) {
+        _disposedCheck();
+
         return Zyfera.zAddComponent(_contextId, _id, component, override);
     }
 
@@ -177,6 +190,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public <T extends A_Component> boolean detach(T component) {
+        _disposedCheck();
+
         return Zyfera.zRmvComponent(_contextId, _id, component);
     }
     /**
@@ -191,6 +206,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public <T extends A_Component> boolean detach(Class<T> componentClass) {
+        _disposedCheck();
+
         return Zyfera.zRmvComponent(_contextId, _id, componentClass);
     }
 
@@ -204,6 +221,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public int switchContext(int toId) {
+        _disposedCheck();
+
         return Zyfera.zSwitchContext(this, toId);
     }
     /**
@@ -216,6 +235,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public int switchContext(Context to) {
+        _disposedCheck();
+
         return Zyfera.zSwitchContext(this, to);
     }
 
@@ -225,6 +246,8 @@ public class Entity {
      * @return The id of this entity.
      */
     public int id() {
+        _disposedCheck();
+
         return _id;
     }
     /**
@@ -235,6 +258,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public Stream stream() {
+        _disposedCheck();
+
         if (_stream == null) _stream = new Stream(this);
 
         return _stream;
@@ -248,6 +273,8 @@ public class Entity {
      * @author Tim Kloepper
      */
     public int contextId() {
+        _disposedCheck();
+
         return _contextId;
     }
     /**
@@ -256,7 +283,24 @@ public class Entity {
      * @return The context this entity is in.
      */
     public Context context() {
+        _disposedCheck();
+
         return Zyfera.zGetContext(_contextId);
+    }
+
+    public void dispose() {
+        _disposedCheck();
+
+        Zyfera.zDisposeEntity(this);
+
+        _disposed = true;
+    }
+    public boolean isDisposed() {
+        return _disposed;
+    }
+
+    private void _disposedCheck() {
+        if (_disposed) throw new EntityIsDisposedException("[ENTITY] : This entity is disposed and cannot be interacted with!");
     }
 
     protected void p_onContextSwitch(int newId, int newContextId) {

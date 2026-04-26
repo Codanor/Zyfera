@@ -1,8 +1,23 @@
-package Zyfera;
+package core;
 
 import java.util.*;
 
 public class Zyfera {
+
+    private Zyfera() {
+
+    }
+
+    public static class NoContextException extends RuntimeException {
+        public NoContextException(String message) {
+            super(message);
+        }
+    }
+    public static class NoEntityException extends RuntimeException {
+        public NoEntityException(String message) {
+            super(message);
+        }
+    }
 
     private static class ContextData {
 
@@ -99,7 +114,7 @@ public class Zyfera {
                 A_Component component;
 
                 _COMPONENTS.computeIfAbsent(componentClass, (cc) -> new A_Component[_maxComponentId + 1])[id] = (component = components.get(componentClass));
-                component.use();
+                component.p_use();
             }
 
             for (A_Processor processor : _PROCESSORS) processor.p_validateEntity(_ID, id);
@@ -121,7 +136,7 @@ public class Zyfera {
                 A_Component component;
 
                 component = _COMPONENTS.get(componentClass)[id];
-                if (component != null) component.unuse();
+                if (component != null) component.p_unuse();
 
                 _COMPONENTS.get(componentClass)[id] = null;
             }
@@ -152,11 +167,11 @@ public class Zyfera {
             currentComponent = (componentList = _COMPONENTS.computeIfAbsent(component.getClass(), (componentClass) -> new A_Component[_maxComponentId + 1]))[entityId];
             if (currentComponent != null) {
                 if (!override) return false;
-                else currentComponent.unuse();
+                else currentComponent.p_unuse();
             }
 
             componentList[entityId] = component;
-            component.use();
+            component.p_use();
 
             for (A_Processor processor : _PROCESSORS) processor.p_validateEntity(_ID, entityId);
 
@@ -179,7 +194,7 @@ public class Zyfera {
             if (currentComponent == null) return false;
 
             componentList[entityId] = null;
-            currentComponent.unuse();
+            currentComponent.p_unuse();
 
             for (A_Processor processor : _PROCESSORS) processor.p_validateEntity(_ID, entityId);
 
@@ -750,6 +765,28 @@ public class Zyfera {
 
     /**
      * Updates all {@link A_Processor} objects with the {@link Entity} objects contained in this {@link Context}.
+     *
+     * @param contextId The id of the context.
+     *
+     * @author Tim Kloepper
+     */
+    public static void zUpdateContext(int contextId) {
+        _getContextData(contextId).update();
+    }
+    /**
+     * Updates all {@link A_Processor} objects with the {@link Entity} objects contained in this {@link Context}.
+     *
+     * @param context The context.
+     *
+     * @author Tim Kloepper
+     */
+    public static void zUpdateContext(Context context) {
+        _getContextData(context.id()).update();
+    }
+
+    /**
+     * Updates all {@link Context} objects by updating all {@link A_Processor} objects with the {@link Entity} object
+     * contained in the contexts.
      *
      * @author Tim Kloepper
      */

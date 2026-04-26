@@ -1,4 +1,4 @@
-package Zyfera;
+package core;
 
 /**
  * <p>
@@ -16,7 +16,17 @@ package Zyfera;
 public class Context {
 
     protected Context(int id) {
+        _disposed = false;
+
         _ID = id;
+    }
+
+    public static class ContextIsDisposedException extends RuntimeException {
+
+        public ContextIsDisposedException(String message) {
+            super(message);
+        }
+
     }
 
     /**
@@ -105,6 +115,8 @@ public class Context {
 
     }
 
+    private boolean _disposed;
+
     private Stream _stream;
 
     private final int _ID;
@@ -120,6 +132,8 @@ public class Context {
      * @author Tim Kloepper
      */
     public boolean attach(A_Processor processor) {
+        _checkDisposed();
+
         return Zyfera.zAttachProcessor(_ID, processor);
     }
     /**
@@ -132,6 +146,8 @@ public class Context {
      * @author Tim Kloepper
      */
     public boolean detach(A_Processor processor) {
+        _checkDisposed();
+
          return Zyfera.zDetachProcessor(_ID, processor);
     }
 
@@ -143,6 +159,8 @@ public class Context {
      * @author Tim Kloepper
      */
     public int createEntityId() {
+        _checkDisposed();
+
         return Zyfera.zCreateEntityId(this);
     }
 
@@ -154,7 +172,24 @@ public class Context {
      * @author Tim Kloepper
      */
     public Entity createEntity() {
+        _checkDisposed();
+
         return Zyfera.zCreateEntity(this);
+    }
+
+    /**
+     * Returns the utility {@link Entity} class of an entity, specified by its id.
+     *
+     * @param entityId The id of the entity.
+     *
+     * @return The entity utility class of the entity.
+     *
+     * @author Tim Kloepper
+     */
+    public Entity getEntity(int entityId) {
+        _checkDisposed();
+
+        return Zyfera.zGetEntity(entityId, _ID);
     }
 
     /**
@@ -165,6 +200,8 @@ public class Context {
      * @author Tim Kloepper
      */
     public int id() {
+        _checkDisposed();
+
         return _ID;
     }
     /**
@@ -175,9 +212,66 @@ public class Context {
      * @author Tim Kloepper
      */
     public Stream stream() {
+        _checkDisposed();
+
         if (_stream == null) _stream = new Stream(this);
 
         return _stream;
+    }
+
+    /**
+     * Disposes this context, making it invalid for further interactions and removing it form {@link Zyfera}.
+     *
+     * @author Tim Kloepper
+     */
+    public void dispose() {
+        _checkDisposed();
+
+        Zyfera.zDisposeContext(this);
+
+        _disposed = true;
+    }
+    /**
+     * Checks, whether this {@link Context} is disposed, or not.
+     *
+     * @return Whether this context is disposed or not.
+     */
+    public boolean isDisposed() {
+        return _disposed;
+    }
+
+    private void _checkDisposed() {
+        if (_disposed) throw new ContextIsDisposedException("[CONTEXT] : This context is disposed and cannot be interacted with!");
+    }
+
+    /**
+     * Disposes an {@link Entity}, making it invalid for further interactions and removing it from this {@link Context} and {@link Zyfera}.
+     *
+     * @param entityId The id of the entity.
+     *
+     * @author Tim Kloepper
+     */
+    public void disposeEntity(int entityId) {
+        Zyfera.zDisposeEntity(_ID, entityId);
+    }
+    /**
+     * Disposes an {@link Entity}, making it invalid for further interactions and removing it from this {@link Context} and {@link Zyfera}.
+     *
+     * @param entity The entity.
+     *
+     * @author Tim Kloepper
+     */
+    public void disposeEntity(Entity entity) {
+        Zyfera.zDisposeEntity(entity);
+    }
+
+    /**
+     * Updates this {@link Context} by updating all {@link A_Processor} objects with the {@link Entity} object in this context.
+     *
+     * @author Tim Kloepper
+     */
+    public void update() {
+        Zyfera.zUpdateContext(this);
     }
 
 }
