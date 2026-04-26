@@ -23,3 +23,11 @@ All in all, Zyfera is a simple but very powerful ECS with cross-context processo
 and a static API.
 
 Furthermore, Zyfera is well documented and the code is easy to read.
+
+# Getting started
+
+The classes used in this example, are in the project, so you can copy-paste this code.
+
+'''
+Context context;
+'''
