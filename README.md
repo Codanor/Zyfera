@@ -36,4 +36,26 @@ context = zCreateContext();
 entity = context.createEntity();
 
 // --- //
+
+ExamplePositionProcessor processor;
+ExamplePositionComponent<Integer> component;
+
+processor = new ExamplePositionProcessor();
+component = new ExamplePositionComponent<>(A_Component.ACCESS_TYPE.SHARED, 4, 4);
+
+// --- //
+
+context.attach(processor);
+entity.attach(component, false);
+
+// --- //
+
+context.update();
+
+// --- //
+
+entity.dispose(); // Is recommended for better error messages, but not required.
+context.dispose();
 ```
+
+This code will produce a console output of "Example component 'component object' with x (4) and y (4)!"
